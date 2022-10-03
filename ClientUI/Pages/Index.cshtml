@@ -1,0 +1,34 @@
+﻿@page
+@model IndexModel
+@using Microsoft.AspNetCore.Html
+@inject ClientUI.Services.IHitCounterService HitCounter
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+@functions
+{
+    IHtmlContent warning(string message)
+    {
+        return Html.Raw(string.Format(@"<p class=""alert alert-warning"">{0}</p>", message));
+    }
+}
+<div class="text-center">
+    <h1 class="display-4">@Model.Message</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="bg-primary text-white text-center m-2 p-2">
+        It is now @DateTime.Now.ToString("D")
+
+        @Html.Label("", "Enter your disposition below")
+        @warning("Anything you type can and will be used against you in a court of law")
+        @Html.TextArea("Disposition", new { @class = "form-control" })
+        <br />
+        @Html.Label("", "Enter your plea below")
+        @warning("If you plead guilty you will be taken to a high security prison!")
+        @Html.TextArea("Plea", new { @class = "form-control" })
+
+
+        You are the @HitCounter.UpdateCount() person to view this page.
+    </div>
+</div>
